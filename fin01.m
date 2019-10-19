@@ -133,6 +133,9 @@ global s3;
 global c;
 global speed;
 fprintf('%f\n',speed);
+fid = fopen('database.txt','a');
+date=datestr(now); 
+fprintf(fid,'%s \r\n',date);
 c=1;
 fopen(s);
 fopen(s1);
@@ -237,7 +240,7 @@ P4=P(97:512);
 
 
 motor_max_value=max(P3);
-bearing_max_value=max(P3);
+bearing_max_value=max(P4);
 
 
 axes(handles.motorvb)
@@ -246,7 +249,7 @@ xlabel('Frequency (Hz)')
 ylabel('®¶´T')
 title('Motor')
 xlim([100 535])
-ylim([0 1])
+ylim([0 3])
 grid on;
 drawnow;
 guidata(hObject, handles);
@@ -258,7 +261,7 @@ xlabel('Frequency (Hz)')
 ylabel('®¶´T')
 title('Bearing')
 xlim([100 535])
-ylim([0 1])
+ylim([0 3])
 grid on;
 drawnow;
 guidata(hObject, handles);
@@ -288,7 +291,8 @@ set(handles.motortempscore,'String',tempscore01);
 set(handles.bearingtempscore,'String',tempscore02);
 set(handles.bearingvbscore,'String',bearingscore);
 set(handles.motorvbscore,'String',motorscore);
-
+%%database
+fprintf(fid,' motorvb:%f bearvb:%f motortemp:%f beartemp:%f power:%f \r\n',motor_max_value,bearing_max_value,a,beartemp,b);
 
 
 z=[100 100 100 100 100 ; motorscore bearingscore powerscore tempscore02 tempscore01];
